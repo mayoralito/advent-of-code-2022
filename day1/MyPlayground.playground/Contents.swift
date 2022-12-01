@@ -22,22 +22,24 @@ func calculateCaloriesPerElf(_ input: String) -> [Int] {
         elfCalories += countCalories
         if calories.isEmpty {
             elfs.append(elfCalories)
-            // Reset elf counter
             elfCalories = 0
         }
-        
     })
     
     return elfs
 }
 
-func getElfWithMoreCalories(elfs: [Int]) -> Int? {
-    return elfs.max { before, current in
-        before <= current
-    }
-}
-
 var input = load(file: "input", ofType: "txt") ?? ""
 let elfItems = calculateCaloriesPerElf(input)
-let elfSaver = getElfWithMoreCalories(elfs: elfItems)
+
+// Sort
+let sortedElfs = elfItems.sorted { val1, val2 in
+    val1 >= val2
+}
+// The most
+let elfSaver = sortedElfs[0]
+// The 3 most
+let the3ElfSavers = sortedElfs[0] + sortedElfs[1] + sortedElfs[2]
+
 print("elfSaver: \(String(describing: elfSaver))")
+print("the3ElfSavers: \(the3ElfSavers)")
